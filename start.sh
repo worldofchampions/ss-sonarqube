@@ -24,7 +24,9 @@ echo "su - elasticsearch -c '/bin/sh /home/site/wwwroot/elasticsearch.sh'" > $SO
 # Install any plugins
 echo "sonar plugins"
 cd $SONARQUBE_HOME/extensions/plugins
-wget https://github.com/hkamel/sonar-auth-aad/releases/download/1.1/sonar-auth-aad-plugin-1.1.jar
+if [ ! -f sonar-auth-aad-plugin-1.1.jar ]; then
+    wget https://github.com/hkamel/sonar-auth-aad/releases/download/1.1/sonar-auth-aad-plugin-1.1.jar
+fi
 
 # Start the server
 echo "sonar start"
@@ -36,6 +38,7 @@ exec java -jar lib/sonar-application-$SONAR_VERSION.jar \
   -Dsonar.jdbc.url="$SONARQUBE_JDBC_URL" \
   -Dsonar.web.port="$WEBSITES_PORT" \
   -Dsonar.web.javaAdditionalOpts="$SONARQUBE_WEB_JVM_OPTS -Djava.security.egd=file:/dev/./urandom" \
+  -Dsonar.core.serverBaseURL="https://$WEBSITE_HOSTNAME" \
   -Dsonar.auth.aad.enabled="$SONARQUBE_AUTH_AAD_ENABLED" \
   -Dsonar.auth.aad.clientId.secured="$SONARQUBE_AUTH_AAD_CLIENTID" \
   -Dsonar.auth.aad.clientSecret.secured="$SONARQUBE_AUTH_AAD_CLIENTSECRET" \
