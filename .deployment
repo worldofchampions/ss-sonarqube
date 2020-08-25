@@ -1,2 +1,2 @@
 [config]
-command = bash start.sh
+command = bash /home/site/wwwroot/start.sh

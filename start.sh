@@ -14,6 +14,7 @@ unzip /tmp/sonarqube.zip -d /tmp/
 mv -f /tmp/sonarqube-$SONAR_VERSION/* $SONARQUBE_HOME/
 rm -rf /tmp/sonarqube-$SONAR_VERSION/
 chmod 0777 -R $SONARQUBE_HOME
+echo "done sonar"
 
 # Workaround for ElasticSearch
 echo "get elastic"
