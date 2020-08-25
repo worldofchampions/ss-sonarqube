@@ -1,7 +1,7 @@
 #!/bin/sh
 # elasticsearch.sh
 
-SONARQUBE_HOME=/home/sonarqube
+SONARQUBE_HOME=/opt/sonarqube
 
 # Use the configuration file SonarQube provides, but keep everything else at the default
 cp $SONARQUBE_HOME/temp/conf/es/elasticsearch.yml $SONARQUBE_HOME/elasticsearch/config
