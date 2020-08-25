@@ -1,0 +1,39 @@
+---
+
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and deploy JAR app to Azure Web App - ss-sonarqube
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@master
+
+    - name: Run start
+      working-directory: ./
+      run: /home/site/wwwroot/startup.sh
+
+#
+#    - name: Set up Java version
+#      uses: actions/setup-java@v1
+#      with:
+#        java-version: '11'
+#
+#    - name: Build with Maven
+#      run: mvn clean install
+#
+#    - name: Deploy to Azure Web App
+#      uses: azure/webapps-deploy@v2
+#      with:
+#        app-name: 'ss-sonarqube'
+#        slot-name: 'production'
+#        publish-profile: ${{ secrets.AzureAppService_PublishProfile_ef35d224cca342d38989b92e75c49dbc }}
+#        package: '${{ github.workspace }}/target/*.jar'
