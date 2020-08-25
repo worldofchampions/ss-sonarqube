@@ -7,7 +7,7 @@ SONARQUBE_HOME=/home/sonarqube
 # Download SonarQube and put it into an ephemeral folder
 echo "get sonarqube"
 wget -O /tmp/sonarqube.zip https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-$SONAR_VERSION.zip
-mkdir -p $SONARQUBE_HOME
+#mkdir -p $SONARQUBE_HOME
 unzip /tmp/sonarqube.zip -d /home/
 mv /home/sonarqube-$SONAR_VERSION $SONARQUBE_HOME
 chmod 0777 -R $SONARQUBE_HOME
