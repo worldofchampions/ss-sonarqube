@@ -1,8 +1,10 @@
 #!/bin/sh
 # elasticsearch.sh
 
+SONARQUBE_HOME=/home/sonarqube
+
 # Use the configuration file SonarQube provides, but keep everything else at the default
-cp /opt/sonarqube/temp/conf/es/elasticsearch.yml /opt/sonarqube/elasticsearch/config
+cp $SONARQUBE_HOME/temp/conf/es/elasticsearch.yml $SONARQUBE_HOME/elasticsearch/config
 
 # Run the ElasticSearch node (without forcing the bootstrap checks)
 exec java \
@@ -27,9 +29,9 @@ exec java \
 -Xms512m \
 -Xmx512m \
 -XX:+HeapDumpOnOutOfMemoryError \
--Des.path.home=/opt/sonarqube/elasticsearch \
--Des.path.conf=/opt/sonarqube/elasticsearch/config \
+-Des.path.home=$SONARQUBE_HOME/elasticsearch \
+-Des.path.conf=$SONARQUBE_HOME/elasticsearch/config \
 -Des.distribution.flavor=default \
 -Des.distribution.type=tar \
--cp '/opt/sonarqube/elasticsearch/lib/*' \
+-cp "$SONARQUBE_HOME/elasticsearch/lib/*" \
 org.elasticsearch.bootstrap.Elasticsearch

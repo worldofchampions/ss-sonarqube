@@ -2,24 +2,28 @@
 # startup.sh
 
 SONAR_VERSION=7.9
-SONARQUBE_HOME=/opt/sonarqube
+SONARQUBE_HOME=/home/sonarqube
 
 # Download SonarQube and put it into an ephemeral folder
+echo "get sonarqube"
 wget -O /tmp/sonarqube.zip https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-$SONAR_VERSION.zip
-mkdir /opt
-unzip /tmp/sonarqube.zip -d /opt/
-mv /opt/sonarqube-$SONAR_VERSION /opt/sonarqube
+mkdir -p $SONARQUBE_HOME
+unzip /tmp/sonarqube.zip -d /home/
+mv /home/sonarqube-$SONAR_VERSION $SONARQUBE_HOME
 chmod 0777 -R $SONARQUBE_HOME
 
 # Workaround for ElasticSearch
+echo "get elastic"
 adduser -DH elasticsearch
-echo "su - elasticsearch -c '/bin/sh /home/site/wwwroot/elasticsearch.sh'" > /opt/sonarqube/elasticsearch/bin/elasticsearch
+echo "su - elasticsearch -c '/bin/sh /home/site/wwwroot/elasticsearch.sh'" > $SONARQUBE_HOME/elasticsearch/bin/elasticsearch
 
 # Install any plugins
+echo "sonar plugins"
 cd $SONARQUBE_HOME/extensions/plugins
 wget https://github.com/hkamel/sonar-auth-aad/releases/download/1.1/sonar-auth-aad-plugin-1.1.jar
 
 # Start the server
+echo "sonar start"
 cd $SONARQUBE_HOME
 exec java -jar lib/sonar-application-$SONAR_VERSION.jar \
   -Dsonar.log.console=true \
