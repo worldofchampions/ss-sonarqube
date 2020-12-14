@@ -6,7 +6,7 @@ SONARQUBE_HOME=/opt/sonarqube
 FLUTTER_HOME=/opt/flutter
 
 # Install Git
-apk add git
+apk add git curl
 
 # Download SonarQube and put it into an ephemeral folder
 echo "get sonarqube"
