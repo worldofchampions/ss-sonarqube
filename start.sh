@@ -27,7 +27,7 @@ tar -xf /tmp/flutter.tar.xz -C /opt/
 rm -rf /tmp/flutter.tar.xz
 chmod 0777 -R $FLUTTER_HOME
 export PATH="$FLUTTER_HOME/bin:$FLUTTER_HOME/bin/cache/dart-sdk/bin:${PATH}"
-flutter doctor
+#flutter doctor
 
 # Workaround for ElasticSearch
 echo "get elastic"
