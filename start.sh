@@ -3,6 +3,10 @@
 
 SONAR_VERSION=7.9
 SONARQUBE_HOME=/opt/sonarqube
+FLUTTER_HOME=/opt/flutter
+
+# Install Git
+apk add git curl
 
 # Download SonarQube and put it into an ephemeral folder
 echo "get sonarqube"
@@ -16,6 +20,15 @@ rm -rf /tmp/sonarqube-$SONAR_VERSION/
 chmod 0777 -R $SONARQUBE_HOME
 echo "done sonar"
 
+# Download Flutter and stuff 
+echo "get flutter and dart"
+wget -O /tmp/flutter.tar.xz https://storage.googleapis.com/flutter_infra/releases/stable/linux/flutter_linux_1.22.5-stable.tar.xz
+tar -xf /tmp/flutter.tar.xz -C /opt/
+rm -rf /tmp/flutter.tar.xz
+chmod 0777 -R $FLUTTER_HOME
+export PATH="$FLUTTER_HOME/bin:$FLUTTER_HOME/bin/cache/dart-sdk/bin:${PATH}"
+flutter doctor
+
 # Workaround for ElasticSearch
 echo "get elastic"
 adduser -DH elasticsearch
@@ -26,6 +39,9 @@ echo "sonar plugins"
 cd $SONARQUBE_HOME/extensions/plugins
 if [ ! -f sonar-auth-aad-plugin-1.1.jar ]; then
     wget https://github.com/hkamel/sonar-auth-aad/releases/download/1.1/sonar-auth-aad-plugin-1.1.jar
+fi
+if [ ! -f sonar-flutter-plugin-0.3.1.jar ]; then
+    wget https://github.com/insideapp-oss/sonar-flutter/releases/download/0.3.1/sonar-flutter-plugin-0.3.1.jar
 fi
 
 # Start the server
